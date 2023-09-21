@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.moviesapi.moviesapi.model.MovieCard;
 import com.moviesapi.moviesapi.service.MoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +13,8 @@ import java.util.List;
 public class MoviesController {
     @Autowired
     MoviesService service;
+
+    @CrossOrigin(origins = "http://localhost:3000")
 
     @GetMapping( value = "/movies", produces = { "application/json"})
     private List<MovieCard> getAllMovies() throws JsonProcessingException {
@@ -24,5 +24,10 @@ public class MoviesController {
     @GetMapping( value = "/get-movie-by-id/{id}", produces = { "application/json"})
     private MovieCard getMovieById(@PathVariable String id) throws JsonProcessingException {
         return service.getMovieById(id);
+    }
+
+    @GetMapping( value = "/movies/{genre}", produces = { "application/json"})
+    private ResponseEntity<List<MovieCard>> getMoviesByGenre(@PathVariable String genre) throws JsonProcessingException {
+        return service.getMoviesByGenre(genre);
     }
 }

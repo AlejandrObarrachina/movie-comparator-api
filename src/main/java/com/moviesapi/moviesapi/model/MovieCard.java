@@ -10,7 +10,7 @@ import java.util.List;
 public class MovieCard {
     private String id;
     private String original_title;
-    private String backdrop_path;
+    private String poster_path;
     private String overview;
     private List<Genre> genres;
 }
