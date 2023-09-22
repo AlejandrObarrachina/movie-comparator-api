@@ -11,16 +11,16 @@ import java.util.List;
 
 @RestController
 public class MoviesController {
-    @Autowired
-    MoviesService service;
+    private final MoviesService service;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    public MoviesController(MoviesService service) {
+        this.service = service;
+    }
 
     @GetMapping( value = "/movies", produces = { "application/json"})
     private List<MovieCard> getAllMovies() throws JsonProcessingException {
         return service.getAllMovies();
     }
-
     @GetMapping( value = "/get-movie-by-id/{id}", produces = { "application/json"})
     private MovieCard getMovieById(@PathVariable String id) throws JsonProcessingException {
         return service.getMovieById(id);
